@@ -1,7 +1,9 @@
-
+import BookCard from "../componets/HomepageComponents/BookCard";
 
 export default function Home() {
   return (
-    <div>Home</div>
-  )
+    <>
+      <BookCard></BookCard>
+    </>
+  );
 }

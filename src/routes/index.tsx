@@ -12,18 +12,18 @@ import MainLayot from "../Layot/MainLayot";
     element:<MainLayot/>,
     children:[
       {
-        path:"/home",
+        path:"/",
         element:<App/>
+      },
+      {
+        path:"/login",
+        element:<Login></Login>
+      },
+      {
+        path:"/register",
+        element:<Register></Register>
       }
     ]
- },
- {
-   path:"/login",
-   element:<Login></Login>
- },
- {
-   path:"/register",
-   element:<Register></Register>
  }
 
 
