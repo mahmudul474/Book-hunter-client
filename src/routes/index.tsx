@@ -4,6 +4,8 @@ import App from "../App";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import MainLayot from "../Layot/MainLayot";
+import Home from "../pages/Home";
+import NotFound from "../pages/NotFound";
 
 
 
@@ -22,8 +24,13 @@ import MainLayot from "../Layot/MainLayot";
       {
         path:"/register",
         element:<Register></Register>
+      },
+      {
+        path:"*",
+        element:<NotFound></NotFound>
       }
-    ]
+    ],
+    
  }
 
 
