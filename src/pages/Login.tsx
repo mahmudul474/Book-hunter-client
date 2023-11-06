@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
 import logo from "../assates/logo.png";
 
 export default function Login() {
   return (
     <div className="w-full  my-7 max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">
     <div className="flex justify-center items-center m-auto mx-auto">
+      <h1>LOGIN</h1>
     </div>
     <img className="w-auto m-auto  h-16 sm:h-16" src={logo} alt=""/>
         <h3 className="mt-3 text-xl font-medium text-center text-gray-600 dark:text-gray-200">Welcome Back</h3>
@@ -13,7 +15,7 @@ export default function Login() {
 
     <form className="mt-6">
         <div>
-            <label htmlFor="username" className="block text-sm text-gray-800 dark:text-gray-200">Username</label>
+            <label htmlFor="username" className="block text-sm text-gray-800 dark:text-gray-200 text-left">Email</label>
             <input type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
         </div>
 
@@ -61,7 +63,7 @@ export default function Login() {
         </a>
     </div>
 
-    <p className="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account? <a href="#" className="font-medium text-gray-700 dark:text-gray-200 hover:underline">Create One</a></p>
+   <p className="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account? <Link to='/register'><a href="#" className="font-medium text-gray-700 dark:text-gray-200 hover:underline">Create One</a></Link> </p>
 </div>
   );
 }
