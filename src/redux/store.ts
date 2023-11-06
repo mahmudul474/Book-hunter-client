@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import couterReducer from './featured/counter/cunterSlice'
-import userReducer from './featured/user/userSlice'
+import  registrationReducer from './featured/user/registrationSlice'
 
 export const store = configureStore({
   reducer: {
     counter: couterReducer,
-    user:userReducer
+    user: registrationReducer,
   },
 })
 
