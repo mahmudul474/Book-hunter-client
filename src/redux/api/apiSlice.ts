@@ -3,7 +3,7 @@ import { Book } from '../../models/Book';
  
 
 export const bookApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://your-backend-url/api' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
   tagTypes: ['Book'],
   endpoints: (builder) => ({
     getBooks: builder.query<Book[], void>({
@@ -11,7 +11,7 @@ export const bookApi = createApi({
     }),
     addBook: builder.mutation<Book, Partial<Book>>({
       query: (book) => ({
-        url: 'books',
+        url: '/book',
         method: 'POST',
         body: book,
       }),

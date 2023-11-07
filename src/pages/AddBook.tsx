@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-
+import React, { FormEvent, useState } from "react";
+import { toast } from 'react-toastify';
 import { Book } from "../models/Book";
-import { useAppDispatch, useAppSelector } from "../redux/hook";
-import toast from "react-hot-toast/headless";
+import {  useAppSelector } from "../redux/hook";
 import { useAddBookMutation } from "../redux/api/apiSlice";
 
+
 function AddBook() {
-  const { user, isLoading } = useAppSelector((state) => state.user);
-const [addBook,{isError}]=useAddBookMutation()
+  const { user} = useAppSelector((state) => state.user);
+const [addBook,{ isLoading}]=useAddBookMutation()
  
 
 
@@ -21,33 +21,49 @@ const [addBook,{isError}]=useAddBookMutation()
     reviews: [],
   });
 
-  const dispatch = useAppDispatch();
+ 
 
 
   const [error, setError] = useState<string>("");
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+  
     if (book.title === "") {
       setError("Please enter title");
     } else if (book.genre === "") {
       setError("Please enter genre");
-    }
-    else if (book.publicationDate === "") {
+    } else if (book.publicationDate === "") {
       setError("Please enter publication date");
-    }else{
-     addBook(book)
-      setBook({
-        img: "",
-        title: "",
-        author: (user as any)?.email || "",
-        genre: "",
-        publicationDate: "",
-        reviews: [],
-      });
-      toast.success("Book added successfully");
+    } else {
+      addBook(book)
+        .then(response => {
+          
+          console.log("Success")
+           setBook({
+             img: "",
+             title: "",
+             author:  "",
+             genre: "",
+             publicationDate: "",
+             reviews: [],
+           });
+           setError("")
+        
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+
     }
   };
+  
+
+
+
+
+
+
 
   if (isLoading) {
     return <div>Loading...</div>;
