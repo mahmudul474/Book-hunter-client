@@ -9,6 +9,9 @@ export const bookApi = createApi({
     latesgetBooks: builder.query<Book[], void>({
       query: () => '/books',
     }),
+    getSingelBook: builder.query({
+      query: (id) => `/book/${id}`,
+    }),
     addBook: builder.mutation<Book, Partial<Book>>({
       query: (book) => ({
         url: '/book',
@@ -19,4 +22,4 @@ export const bookApi = createApi({
   }),
 });
 
-export const { useLatesgetBooksQuery, useAddBookMutation } = bookApi;
+export const { useLatesgetBooksQuery,useGetSingelBookQuery, useAddBookMutation } = bookApi;
