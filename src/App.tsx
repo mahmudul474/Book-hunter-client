@@ -1,15 +1,31 @@
-import { useState } from 'react'
-import './App.css'
-import Home from './pages/Home'
+import { useEffect } from "react";
+import "./App.css";
+import Home from "./pages/Home";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./lib/firbase";
+import { useAppDispatch } from "./redux/hook";
+import { setLoading, setUser } from "./redux/featured/user/registrationSlice";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(setLoading(true));
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        dispatch(setUser(user.email));
+        dispatch(setLoading(false));
+      } else {
+        dispatch(setLoading(false));
+      }
+    });
+  }, []);
 
   return (
     <>
-    <Home></Home>
+      <Home></Home>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
