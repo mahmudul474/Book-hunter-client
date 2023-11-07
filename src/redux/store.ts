@@ -1,12 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import couterReducer from './featured/counter/cunterSlice'
 import  registrationReducer from './featured/user/registrationSlice'
+import { bookApi } from './api/apiSlice'
 
 export const store = configureStore({
   reducer: {
     counter: couterReducer,
     user: registrationReducer,
+    [bookApi.reducerPath]:bookApi.reducer
   },
+  middleware: (getDefaultMiddleware) =>
+  getDefaultMiddleware().concat(bookApi.middleware),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
