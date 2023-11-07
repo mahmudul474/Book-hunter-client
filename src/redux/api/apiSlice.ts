@@ -6,8 +6,8 @@ export const bookApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
   tagTypes: ['Book'],
   endpoints: (builder) => ({
-    getBooks: builder.query<Book[], void>({
-      query: () => 'books',
+    latesgetBooks: builder.query<Book[], void>({
+      query: () => '/books',
     }),
     addBook: builder.mutation<Book, Partial<Book>>({
       query: (book) => ({
@@ -19,4 +19,4 @@ export const bookApi = createApi({
   }),
 });
 
-export const { useGetBooksQuery, useAddBookMutation } = bookApi;
+export const { useLatesgetBooksQuery, useAddBookMutation } = bookApi;

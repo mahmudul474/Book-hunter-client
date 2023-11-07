@@ -1,6 +1,6 @@
 
 interface Book {
-    img?: string;
+    authorName: string;
     title: string;
     author: string;
     genre: string;

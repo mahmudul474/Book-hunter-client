@@ -34,6 +34,9 @@ const [addBook,{ isLoading}]=useAddBookMutation()
     } else if (book.genre === "") {
       setError("Please enter genre");
     } else if (book.publicationDate === "") {
+    } else if (book.authorName === "") {
+      setError("Please enter  author name");
+    } else if (book.publicationDate === "") {
       setError("Please enter publication date");
     } else {
       addBook(book)
@@ -41,7 +44,7 @@ const [addBook,{ isLoading}]=useAddBookMutation()
           
           console.log("Success")
            setBook({
-             img: "",
+             authorName: "",
              title: "",
              author:  "",
              genre: "",
@@ -84,10 +87,10 @@ const [addBook,{ isLoading}]=useAddBookMutation()
 
         <input
           type="text"
-          placeholder="Img url "
+          placeholder="Author Name "
           className="p-3 border  border-black capitalize my-3"
-          value={book.img}
-          onChange={(e) => setBook({ ...book, img: e.target.value })}
+          value={book.authorName}
+          onChange={(e) => setBook({ ...book, authorName: e.target.value })}
         />
 
         <input
