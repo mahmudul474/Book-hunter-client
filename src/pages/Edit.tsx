@@ -1,74 +1,51 @@
-import React, { FormEvent, useState } from "react";
-import { toast } from 'react-toastify';
+
+
+import React, { FormEvent, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { Book } from "../models/Book";
-import {  useAppSelector } from "../redux/hook";
-import { useAddBookMutation } from "../redux/api/apiSlice";
+import { useAppSelector } from "../redux/hook";
+import { useParams } from "react-router-dom";
+import {
+  useGetSingelBookQuery,
+  useUpdateBookMutation,
+} from "../redux/api/apiSlice";
+
+function Edit() {
+  const { user, isLoading } = useAppSelector((state) => state.user);
+
+  const { id } = useParams();
 
 
-function AddBook() {
-  const { user} = useAppSelector((state) => state.user);
-const [addBook,{ isLoading}]=useAddBookMutation()
- 
+  const { data: bookData ,} = useGetSingelBookQuery(id);
+  const [updateBook, { isError }] = useUpdateBookMutation();
 
-
+  console.log(bookData)
 
   const [book, setBook] = useState<Book>({
-    authorName: "",
-    title: "",
-    author: (user as any)?.email || "",
-    genre: "",
-    publicationDate: "",
-    reviews: [],
+    authorName: bookData?.authorName,
+    title: bookData?.title,
+    author: bookData?.author,
+    genre: bookData?.genre,
+    publicationDate: bookData?.publicationDate,
+    reviews: bookData?.reviews,
   });
 
- 
-
-
-  const [error, setError] = useState<string>("");
+  useEffect(() => {
+    if (bookData) {
+      setBook(bookData);
+    }
+  }, [bookData]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-  
-    if (book.title === "") {
-      setError("Please enter title");
-    } else if (book.genre === "") {
-      setError("Please enter genre");
-    } else if (book.publicationDate === "") {
-    } else if (book.authorName === "") {
-      setError("Please enter  author name");
-    } else if (book.publicationDate === "") {
-      setError("Please enter publication date");
-    } else {
-      addBook(book)
-        .then(response => {
-          
-          console.log("Success")
-           setBook({
-             authorName: "",
-             title: "",
-             author:  "",
-             genre: "",
-             publicationDate: "",
-             reviews: [],
-           });
-           setError("")
-        
-        })
-        .catch((error) => {
-          toast.error(error.message);
-        });
-
+    const option={
+        id:id,
+        book:{book}
     }
+    updateBook(option)
   };
-  
 
-
-
-
-
-
-
-  if (isLoading) {
+  if (isLoading || !id || !bookData) {
     return <div>Loading...</div>;
   }
 
@@ -109,17 +86,17 @@ const [addBook,{ isLoading}]=useAddBookMutation()
             setBook({ ...book, publicationDate: e.target.value })
           }
         />
-        <p className="text-red-500  font-bold my-2">{error}</p>
+       
         <button
           className="border    m-auto p-3 px-6 rounded-xl  border-black hover:bg-transparent hover:text-black bg-black text-white "
-          type="button"
+          type="submit"
           onClick={handleSubmit}
         >
-          Add Book
+        Uptade Book
         </button>
       </form>
     </div>
   );
 }
 
-export default AddBook;
+export default Edit;

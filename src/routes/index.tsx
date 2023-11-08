@@ -9,6 +9,7 @@ import NotFound from "../pages/NotFound";
 import AllBook from "../pages/AllBook";
 import AddBook from "../pages/AddBook";
 import BookDettails from "../pages/BookDettails";
+import Edit from "../pages/Edit";
 
 export const routes = createBrowserRouter([
   {
@@ -39,6 +40,11 @@ export const routes = createBrowserRouter([
         path: "/book/:id",
         element: <BookDettails></BookDettails>,
       },
+      {
+        path: "/book/edit/:id",
+        element: <Edit></Edit>,
+      },
+      
       {
         path: "*",
         element: <NotFound></NotFound>,

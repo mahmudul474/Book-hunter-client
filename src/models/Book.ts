@@ -6,7 +6,7 @@ interface Book {
     author: string;
     genre: string;
     publicationDate: string;
-    reviews: Review[];
+    reviews:[];
   
   }
   
@@ -16,5 +16,5 @@ interface Book {
     rating: number;
   }
   
-  export type { Book, Review };
+  export type { Book};
   

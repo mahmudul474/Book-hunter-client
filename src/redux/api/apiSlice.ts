@@ -11,6 +11,7 @@ export const bookApi = createApi({
     }),
     getSingelBook: builder.query({
       query: (id) => `/book/${id}`,
+      providesTags:["Book"]
     }),
     addBook: builder.mutation<Book, Partial<Book>>({
       query: (book) => ({
@@ -19,7 +20,30 @@ export const bookApi = createApi({
         body: book,
       }),
     }),
+     postReview: builder.mutation({
+      query: ({id, reviews}) => ({
+        url: `/book/review/${id}`,
+        method: 'PUT',
+        body: reviews,
+      }),
+      invalidatesTags: ['Book'],
+    }), deleteBook: builder.mutation({
+      query: (id) => ({
+        url: `/book/delete/${id}`,
+        method: 'DELETE',
+        body:id,
+      }),
+    }),
+    updateBook: builder.mutation({
+      query: ({id,book}) => ({
+        url: `/book/edit/${id}`,
+        method: 'PUT',
+        body: book,
+      }),
+    }),
+   
+     
   }),
 });
 
-export const { useLatesgetBooksQuery,useGetSingelBookQuery, useAddBookMutation } = bookApi;
+export const { useDeleteBookMutation,usePostReviewMutation,useLatesgetBooksQuery,useUpdateBookMutation,useGetSingelBookQuery, useAddBookMutation } = bookApi;
