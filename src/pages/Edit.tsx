@@ -11,15 +11,15 @@ import {
 } from "../redux/api/apiSlice";
 
 function Edit() {
-  const { user, isLoading } = useAppSelector((state) => state.user);
+  
 
   const { id } = useParams();
 
 
-  const { data: bookData ,} = useGetSingelBookQuery(id);
+  const { data: bookData ,isLoading} = useGetSingelBookQuery(id);
   const [updateBook, { isError }] = useUpdateBookMutation();
 
-  console.log(bookData)
+ 
 
   const [book, setBook] = useState<Book>({
     authorName: bookData?.authorName,
@@ -43,6 +43,11 @@ function Edit() {
         book:{book}
     }
     updateBook(option)
+    .then(res=>{
+      
+      toast.success("Book Updated Successfully");
+      
+    }).catch(err => {toast.error(err);});
   };
 
   if (isLoading || !id || !bookData) {
@@ -51,7 +56,7 @@ function Edit() {
 
   return (
     <div className="px-4   py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-      <h1>Add Book</h1>
+      <h1>Edit Book</h1>
       <form className="flex flex-col lg:w-2/3 w-full m-auto   ">
         <input
           type="text"

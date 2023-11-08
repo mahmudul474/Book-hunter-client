@@ -6,15 +6,12 @@ import { logoutUser } from "../redux/featured/user/registrationSlice";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const  dispatch=useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.user);
   const handleLogout = () => {
     dispatch(logoutUser());
   };
-
-
-
 
   return (
     <div className="px-4   mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -28,6 +25,8 @@ export const Header = () => {
           <img src={logo} className="h-24" alt="book-hunter" />
         </a>
         <ul className="flex items-center hidden space-x-8 lg:flex">
+        <Link to="/allbook"> 
+        
           <li>
             <a
               href="/"
@@ -35,50 +34,31 @@ export const Header = () => {
               title="Our product"
               className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
             >
-              Product
+              All-Book
             </a>
-          </li>
-          <li>
-            <a
-              href="/"
-              aria-label="Our product"
-              title="Our product"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Features
-            </a>
-          </li>
-          <li>
-            <a
-              href="/"
-              aria-label="Product pricing"
-              title="Product pricing"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Pricing
-            </a>
-          </li>
-          <li>
-            <a
-              href="/"
-              aria-label="About us"
-              title="About us"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              About us
-            </a>
-          </li>
+          </li> </Link>
         </ul>
         <ul className="flex items-center hidden space-x-8 lg:flex">
           {user ? (
-            <a
-            onClick={handleLogout }
-              className="inline-flex items-center text-red-500 font-bold justify-center h-12 px-6 cursor-pointer tracking-wide   transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-              aria-label="logOut"
-              title="logout"
-            >
-              Log-out
-            </a>
+            <>
+              <Link to="/addbook">
+                <a
+                  className="inline-flex items-center text-red-500 font-bold justify-center h-12 px-6 cursor-pointer tracking-wide   transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                  aria-label="AddBook"
+                  title="addBook"
+                >
+                  ADD NEW BOOK
+                </a>
+              </Link>
+              <a
+                onClick={handleLogout}
+                className="inline-flex items-center text-red-500 font-bold justify-center h-12 px-6 cursor-pointer tracking-wide   transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                aria-label="logOut"
+                title="logout"
+              >
+                Log-out
+              </a>
+            </>
           ) : (
             <>
               <li>
@@ -132,7 +112,7 @@ export const Header = () => {
           </button>
           {isMenuOpen && (
             <div className="absolute top-0 left-0 w-full">
-              <div className="p-5 bg-white border rounded shadow-sm">
+              <div className="p-5 bg-white z-50 border rounded shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <a
@@ -162,58 +142,41 @@ export const Header = () => {
                 </div>
                 <nav>
                   <ul className="space-y-4">
-                    <li>
+                   
+                   <Link to="/allbook"> <li>
                       <a
                         href="/"
                         aria-label="Our product"
                         title="Our product"
                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                       >
-                        Product
+                        All Book
                       </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="Our product"
-                        title="Our product"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Features
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="Product pricing"
-                        title="Product pricing"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Pricing
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="About us"
-                        title="About us"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        About us
-                      </a>
-                    </li>
-                    {user ? (
-                      <li>
-                        <a
+                    </li></Link>
 
-                 onClick={handleLogout }
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-red-500 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                          aria-label="Sign up"
-                          title="Sign up"
-                        >
-                          Log-Out
-                        </a>
-                      </li>
+                    {user ? (
+                      <>
+                        <Link to="/addbook">
+                          <a
+                            className="inline-flex items-center text-red-500 font-bold justify-center h-12 px-6 cursor-pointer tracking-wide   transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                            aria-label="AddBook"
+                            title="addBook"
+                          >
+                            ADD NEW BOOK
+                          </a>
+                        </Link>
+
+                        <li>
+                          <a
+                            onClick={handleLogout}
+                            className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-red-500 transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                            aria-label="Sign up"
+                            title="Sign up"
+                          >
+                            Log-Out
+                          </a>
+                        </li>
+                      </>
                     ) : (
                       <li>
                         <Link to="/register">

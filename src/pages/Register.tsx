@@ -8,11 +8,11 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assates/logo.png";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
+import { toast } from "react-toastify";
 
 function Register() {
   const dispatch = useAppDispatch();
-  const { user, isLoading, isError, error } = useAppSelector(
-    (state) => state.user
+  const { user, isLoading, isError, error } = useAppSelector((state) => state.user
   );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,17 +21,24 @@ function Register() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(registerUser({ email, password }));
+    if(user){
+         toast("login succes",{autoClose:300})
+    }
   };
 
   const handleGoogleSignIn = () => {
     dispatch(signInWithGoogle());
+    navaigate("/");
   };
+
+
+   
 
   useEffect(() => {
     if (user) {
       navaigate("/");
     }
-  }, []);
+  }, [user]);
 
   return (
     <div className="w-full  my-7 max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">

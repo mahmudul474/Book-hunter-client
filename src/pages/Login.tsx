@@ -8,7 +8,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assates/logo.png";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-
+import { toast } from "react-toastify";
 function Login() {
   const dispatch = useAppDispatch();
   const { user, isLoading, isError, error } = useAppSelector(
@@ -24,7 +24,11 @@ function Login() {
   };
 
   const handleGoogleSignIn = () => {
-    dispatch(signInWithGoogle());
+    dispatch(signInWithGoogle())
+   if(user){
+    navaigate("/")
+   }
+   
   };
   useEffect(() => {
     if (user) {
