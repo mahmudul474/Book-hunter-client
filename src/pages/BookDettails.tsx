@@ -7,11 +7,11 @@ import { useAppSelector } from "../redux/hook";
 import BookReview from "../componets/BookReview";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"
+import "react-toastify/dist/ReactToastify.css";
 
 export default function BookDettails() {
   const { id } = useParams();
-  const   navigate=useNavigate()
+  const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.user);
 
   const [isopenModal, setIsopenModal] = useState<boolean>(false);
@@ -22,40 +22,30 @@ export default function BookDettails() {
     setIsopenModal(false);
   };
 
-  const { data, isLoading, isError,error } = useGetSingelBookQuery(id);
+  const { data, isLoading, isError, error } = useGetSingelBookQuery(id);
   const [deleteBook] = useDeleteBookMutation();
 
-  const handleDeleteProduct = async(id: string) => {
-    const option={
-      id:id,
-      user:{user}
-    }
-try{
-    const response:any=await  deleteBook(option)
-    if (response.data && response.data.message) {
-      toast.success(response.data.message, {autoClose:2000});
-      handelclose()
-      navigate("/")
-    } else {
-     toast.error("You are not author this book ", {autoClose:3000})
-      handelclose()
-    }
-  } catch (error:any) {
-
-}
-
-
-   
-
-
-  
+  const handleDeleteProduct = async (id: string) => {
+    const option = {
+      id: id,
+      user: { user },
+    };
+    try {
+      const response: any = await deleteBook(option);
+      if (response.data && response.data.message) {
+        toast.success(response.data.message, { autoClose: 2000 });
+        handelclose();
+        navigate("/");
+      } else {
+        toast.error("You are not author this book ", { autoClose: 3000 });
+        handelclose();
+      }
+    } catch (error: any) {}
   };
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
-
 
   return (
     <>
@@ -76,25 +66,23 @@ try{
             <div className="w-full px-4 md:w-1/2 ">
               <div className="lg:pl-20">
                 <div className="pb-6 mb-8 border-b border-gray-200 dark:border-gray-700">
-                  
-                    <div className="flex justify-start ">
-                      <Link to={`/book/edit/${data?._id}`}>
-                        <button
-                          type="button"
-                          className="btn p-3 px-7 rounded-xl m-2 bg-green-600 text-white"
-                        >
-                          Edit
-                        </button>
-                      </Link>
+                  <div className="flex justify-start ">
+                    <Link to={`/book/edit/${data?._id}`}>
                       <button
-                        onClick={handelModal}
                         type="button"
-                        className="p-3 px-7 rounded-xl m-2 bg-red-600 text-white btn"
+                        className="btn p-3 px-7 rounded-xl m-2 bg-green-600 text-white"
                       >
-                        Delete
+                        Edit
                       </button>
-                    </div>
-                
+                    </Link>
+                    <button
+                      onClick={handelModal}
+                      type="button"
+                      className="p-3 px-7 rounded-xl m-2 bg-red-600 text-white btn"
+                    >
+                      Delete
+                    </button>
+                  </div>
 
                   <h2 className="max-w-xl capitalize mt-2 mb-6 text-xl font-bold text-left  dark:text-gray-300 md:text-4xl">
                     {data?.title}
@@ -183,24 +171,34 @@ try{
       </section>
       {isopenModal === true && (
         <div className="m-auto w-full">
-        <div className="fixed    m-auto  top-0 z-50 left-0 w-full h-full bg-black flex justify-center items-center">
-          <div className="text-white">
-           
-            <p className="py-4">Are you sure Delete <span className="text-red-400 text-xl capitalize">{data?.title}</span>  ?</p>
-            <div className="modal-action">
-              <label
-                onClick={()=>handleDeleteProduct(data?._id)} // Use an arrow function to delay the function call
-                htmlFor="my_modal_6"
-                className="btn"
-              >
-                Delete
-              </label>
-              <label onClick={handelclose} htmlFor="my_modal_6" className="btn">
-                Close !
-              </label>
+          <div className="fixed    m-auto  top-0 z-50 left-0 w-full h-full bg-black flex justify-center items-center">
+            <div className="text-white">
+              <p className="py-4">
+                Are you sure Delete{" "}
+                <span className="text-red-400 text-xl capitalize">
+                  {data?.title}
+                </span>{" "}
+                ?
+              </p>
+              <div className="modal-action">
+                <label
+                  onClick={() => handleDeleteProduct(data?._id)} // Use an arrow function to delay the function call
+                  htmlFor="my_modal_6"
+                  className="btn"
+                >
+                  Delete
+                </label>
+                <label
+                  onClick={handelclose}
+                  htmlFor="my_modal_6"
+                  className="btn"
+                >
+                  Close !
+                </label>
+              </div>
             </div>
           </div>
-        </div></div>
+        </div>
       )}
     </>
   );

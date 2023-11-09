@@ -6,12 +6,11 @@ import { useAppDispatch } from "../redux/hook";
 
 export default function Home() {
   const { data, isLoading, isError } = useLatesgetBooksQuery();
-   const dispatch=useAppDispatch()
-  const handleAddToWishlist = (bookId:string) => {
-    if(bookId){
-      dispatch(addToWishlist({ bookId, status: 'toRead' }));
+  const dispatch = useAppDispatch();
+  const handleAddToWishlist = (bookId: string) => {
+    if (bookId) {
+      dispatch(addToWishlist({ bookId, status: "toRead" }));
     }
-
   };
   if (isLoading) {
     return <div>Loading...</div>;

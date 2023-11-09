@@ -8,14 +8,14 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assates/logo.png";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
- 
 
 function Register() {
-  const navigate=useNavigate()
-  const location=useLocation()
-  const from = location.state?.from?.pathname || '/';
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const dispatch = useAppDispatch();
-  const { user, isLoading, isError, error } = useAppSelector((state) => state.user
+  const { user, isLoading, isError, error } = useAppSelector(
+    (state) => state.user
   );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,12 +24,10 @@ function Register() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(registerUser({ email, password }));
-    
   };
   useEffect(() => {
     if (user && !isLoading && !isError) {
-    
-       navigate(from, { replace: true });
+      navigate(from, { replace: true });
     }
   }, [user, isLoading, isError]);
 
@@ -37,9 +35,6 @@ function Register() {
     dispatch(signInWithGoogle());
     navaigate("/");
   };
-
-
-   
 
   useEffect(() => {
     if (user) {

@@ -1,18 +1,15 @@
-
 import { useAllbooksQuery } from "../redux/api/apiSlice";
 import { Link } from "react-router-dom";
 
-import {  useAppDispatch, useAppSelector } from "../redux/hook";
+import { useAppDispatch, useAppSelector } from "../redux/hook";
 
 import SearBar from "../componets/SearBar";
 import Filter from "../componets/Filter";
-import { addToWishlist} from "../redux/featured/book/bookSlice";
-
- 
+import { addToWishlist } from "../redux/featured/book/bookSlice";
 
 export default function AllBooks() {
-  const { data: bookData, isLoading, isError    } = useAllbooksQuery();
- const dispatch=useAppDispatch()
+  const { data: bookData, isLoading, isError } = useAllbooksQuery();
+  const dispatch = useAppDispatch();
   const { filter } = useAppSelector((state) => state.book);
 
   const filteredBooks = bookData
@@ -41,15 +38,11 @@ export default function AllBooks() {
       })
     : [];
 
-    const handleAddToWishlist = (bookId:string) => {
-      if(bookId){
-        dispatch(addToWishlist({ bookId, status: 'toRead' }));
-      }
-  
-    };
-  
-
-
+  const handleAddToWishlist = (bookId: string) => {
+    if (bookId) {
+      dispatch(addToWishlist({ bookId, status: "toRead" }));
+    }
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -140,21 +133,23 @@ export default function AllBooks() {
                             <span className="font-normal text-gray-600 text-base"></span>
                           </p>
 
-
- <Link to="/wishlist">
-                          <button className="btn" onClick={() => handleAddToWishlist(book._id as string)}>Add to Wishlist</button>
-            
-
+                          <Link to="/wishlist">
+                            <button
+                              className="btn"
+                              onClick={() =>
+                                handleAddToWishlist(book._id as string)
+                              }
+                            >
+                              Add to Wishlist
+                            </button>
                           </Link>
-
-
-
                         </div>
                       </div>
                     </div>
                   ))}
               </div>
             </div>
+            
           </section>
         </main>
       </div>

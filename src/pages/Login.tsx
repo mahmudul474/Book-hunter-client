@@ -8,7 +8,7 @@ import {
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assates/logo.png";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
- 
+
 function Login() {
   const dispatch = useAppDispatch();
   const { user, isLoading, isError, error } = useAppSelector(
@@ -19,7 +19,7 @@ function Login() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const from = location.state?.from?.pathname || '/';
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,14 +27,11 @@ function Login() {
   };
 
   const handleGoogleSignIn = () => {
-    dispatch(signInWithGoogle())
-  
-   
+    dispatch(signInWithGoogle());
   };
   useEffect(() => {
     if (user && !isLoading && !isError) {
-    
-       navigate(from, { replace: true });
+      navigate(from, { replace: true });
     }
   }, [user, isLoading, isError]);
 
