@@ -11,6 +11,7 @@ export default function SearBar() {
   return (
     <div> <input
     type="text"
+    className='border  border-black p-3   m-auto  w-full'
     onChange={handleSearch}
     placeholder="Search by Title, Author, or Genre"
  

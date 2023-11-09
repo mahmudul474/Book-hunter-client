@@ -16,22 +16,27 @@ export default function Filter() {
       dispatch(setYearFilter(e.target.value));
     };
   return (
-    <div>
-    <label>Filter by Genre:</label>
+  <div className='flex flex-col text-black'>
+   <div className='my-2 border  border-gray-400'>
+   <label>Filter by Genre:</label>
     <select onChange={handleGenreChange}>
         <option value="">All Genres</option>
         <option value="Mystery">Mystery</option>
         <option value="Fantasy">Fantasy</option>
-        {/* Add more genre options as needed */}
+        
       </select>
-
+   </div>
+   <div className='border  border-black  py-4'>
     <label>Filter by Publication Year:</label>
     <input
       type="number"
+      className='border border-black py-2'
       placeholder="Publication Year"
       onChange={handleYearChange}
       value={filter.year}
-    />
+    /></div>
+
   </div>
+  
   )
 }
