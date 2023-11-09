@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useState } from "react";
+import  { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Book } from "../models/Book";
 import { useAppSelector } from "../redux/hook";
@@ -13,7 +13,7 @@ function Edit() {
   const { user } = useAppSelector((state) => state.user);
 
   const { data: bookData, isLoading } = useGetSingelBookQuery(id);
-  const [updateBook, { isError, isSuccess }] = useUpdateBookMutation();
+  const [updateBook, { isError, }] = useUpdateBookMutation();
 
   const [book, setBook] = useState<Book>({
     authorName: bookData?.authorName,

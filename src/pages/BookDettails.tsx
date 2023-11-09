@@ -6,7 +6,7 @@ import {
 import { useAppSelector } from "../redux/hook";
 import BookReview from "../componets/BookReview";
 import { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function BookDettails() {
@@ -22,7 +22,7 @@ export default function BookDettails() {
     setIsopenModal(false);
   };
 
-  const { data, isLoading, isError, error } = useGetSingelBookQuery(id);
+  const { data, isLoading,  } = useGetSingelBookQuery(id);
   const [deleteBook] = useDeleteBookMutation();
 
   const handleDeleteProduct = async (id: string) => {

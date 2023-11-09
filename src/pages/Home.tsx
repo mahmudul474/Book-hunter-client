@@ -1,11 +1,11 @@
-import { useState } from "react";
+
 import { useLatesgetBooksQuery } from "../redux/api/apiSlice";
 import { Link } from "react-router-dom";
 import { addToWishlist } from "../redux/featured/book/bookSlice";
 import { useAppDispatch } from "../redux/hook";
 
 export default function Home() {
-  const { data, isLoading, isError } = useLatesgetBooksQuery();
+  const { data, isLoading,  } = useLatesgetBooksQuery();
   const dispatch = useAppDispatch();
   const handleAddToWishlist = (bookId: string) => {
     if (bookId) {
