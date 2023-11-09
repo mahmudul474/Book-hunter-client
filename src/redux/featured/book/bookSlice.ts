@@ -22,7 +22,7 @@ interface BooksState {
 }
 
 const initialState: BooksState = {
-  books: [], // Initialize with your book data
+  books: [], 
   filter: {
     searchTerm: '',
     genre: '',
