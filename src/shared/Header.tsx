@@ -37,6 +37,18 @@ export const Header = () => {
               All-Book
             </a>
           </li> </Link>
+        <Link to="/wishlist"> 
+        
+          <li>
+            <a
+              href="/"
+              aria-label="Our product"
+              title="Our product"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            >
+            wishlist
+            </a>
+          </li> </Link>
         </ul>
         <ul className="flex items-center hidden space-x-8 lg:flex">
           {user ? (
@@ -153,7 +165,18 @@ export const Header = () => {
                         All Book
                       </a>
                     </li></Link>
-
+                    <Link to="/wishlist"> 
+        
+        <li>
+          <a
+            href="/"
+            aria-label="Our product"
+            title="Our product"
+            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+          >
+          wishlist
+          </a>
+        </li> </Link>
                     {user ? (
                       <>
                         <Link to="/addbook">

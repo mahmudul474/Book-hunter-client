@@ -6,7 +6,7 @@ export default function Filter() {
 
     const dispatch = useAppDispatch();
     
-    const {filter} = useAppSelector((state) => state.book ); // Add yearFilter
+    const {filter} = useAppSelector((state:any) => state.book ); // Add yearFilter
   
     const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
       dispatch(setGenreFilter(e.target.value));

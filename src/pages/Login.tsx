@@ -5,10 +5,10 @@ import {
   loginUser,
   signInWithGoogle,
 } from "../redux/featured/user/registrationSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../assates/logo.png";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-import { toast } from "react-toastify";
+ 
 function Login() {
   const dispatch = useAppDispatch();
   const { user, isLoading, isError, error } = useAppSelector(
@@ -16,7 +16,10 @@ function Login() {
   );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navaigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || '/';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,16 +28,15 @@ function Login() {
 
   const handleGoogleSignIn = () => {
     dispatch(signInWithGoogle())
-   if(user){
-    navaigate("/")
-   }
+  
    
   };
   useEffect(() => {
-    if (user) {
-      navaigate("/");
+    if (user && !isLoading && !isError) {
+    
+       navigate(from, { replace: true });
     }
-  }, []);
+  }, [user, isLoading, isError]);
 
   return (
     <div className="w-full  my-7 max-w-sm p-6 m-auto mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">

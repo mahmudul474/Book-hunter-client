@@ -10,6 +10,7 @@ import BookDettails from "../pages/BookDettails";
 import Edit from "../pages/Edit";
 import PrivateRoute from "./PrivateRoute";
 import AllBooks from "../pages/AllBooks";
+import WishtLisht from "../pages/WishtLisht";
 
 export const routes = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const routes = createBrowserRouter([
       {
         path: "/book/edit/:id",
         element: <PrivateRoute><Edit></Edit></PrivateRoute>,
+      },
+      {
+        path:"/wishlist",
+        element:<WishtLisht></WishtLisht>
       },
       
       {

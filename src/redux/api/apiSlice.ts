@@ -8,9 +8,11 @@ export const bookApi = createApi({
   endpoints: (builder) => ({
     latesgetBooks: builder.query<Book[], void>({
       query: () => '/books',
+      providesTags:["Book"]
     }),
     allbooks: builder.query<Book[] | undefined, void>({
       query: () => '/allbooks',
+      providesTags:["Book"]
     }),
     getSingelBook: builder.query({
       query: (id) => `/book/${id}`,

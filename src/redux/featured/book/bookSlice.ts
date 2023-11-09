@@ -1,4 +1,4 @@
-// src/features/books/booksSlice.ts
+ 
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -11,7 +11,11 @@ interface Book {
   publicationDate: string;
   reviews: any[];
 }
-
+interface WishlistItem {
+  bookId: string;
+  status: 'toRead' | 'reading' | 'finished';
+}
+ 
 interface BooksState {
   books: Book[];
   filter: {
@@ -19,6 +23,7 @@ interface BooksState {
     genre: string;
     year: string;
   };
+  wishlist: WishlistItem[];
 }
 
 const initialState: BooksState = {
@@ -27,7 +32,7 @@ const initialState: BooksState = {
     searchTerm: '',
     genre: '',
     year: '',
-  },
+  },wishlist: [], 
 };
 
 const booksSlice = createSlice({
@@ -42,9 +47,23 @@ const booksSlice = createSlice({
     },
     setYearFilter: (state, action: PayloadAction<string>) => {
       state.filter.year = action.payload;
+    },  addToWishlist: (state, action: PayloadAction<WishlistItem>) => {
+      state.wishlist.push(action.payload);
     },
+    removeFromWishlist: (state, action: PayloadAction<string>) => {
+      state.wishlist = state.wishlist.filter((item) => item.bookId !== action.payload);
+    },
+    updateWishlistStatus: (state, action: PayloadAction<WishlistItem>) => {
+      const index = state.wishlist.findIndex((item) => item.bookId === action.payload.bookId);
+      if (index !== -1) {
+        state.wishlist[index].status = action.payload.status;
+      }
+    },
+    
   },
 });
 
-export const { setSearchTerm, setGenreFilter, setYearFilter } = booksSlice.actions;
+export const { addToWishlist,
+  removeFromWishlist,
+  updateWishlistStatus, setSearchTerm, setGenreFilter, setYearFilter } = booksSlice.actions;
 export default booksSlice.reducer;
