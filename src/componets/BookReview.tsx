@@ -26,13 +26,18 @@ export default function BookReview({ book }: any) {
 
     try {
       await postReview(reviewData);
-      toast.success("Review posted successfully!",{autoClose:30000});
+      toast.success("Review posted successfully!",{autoClose:3000});
       setReviwe("")
       
     } catch (error) {
       toast.error("An error occurred while posting the review.");
     }
   };
+
+
+  if(isLoading){
+   return <h1>Loading ...</h1>
+  }
 
   return (
     <section className="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">

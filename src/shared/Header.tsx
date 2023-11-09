@@ -25,7 +25,7 @@ export const Header = () => {
           <img src={logo} className="h-24" alt="book-hunter" />
         </a>
         <ul className="flex items-center hidden space-x-8 lg:flex">
-        <Link to="/allbook"> 
+        <Link to="/books"> 
         
           <li>
             <a
@@ -143,7 +143,7 @@ export const Header = () => {
                 <nav>
                   <ul className="space-y-4">
                    
-                   <Link to="/allbook"> <li>
+                   <Link to="/books"> <li>
                       <a
                         href="/"
                         aria-label="Our product"

@@ -2,11 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import couterReducer from './featured/counter/cunterSlice'
 import  registrationReducer from './featured/user/registrationSlice'
 import { bookApi } from './api/apiSlice'
+import bookReducer from './featured/book/bookSlice'
 
 export const store = configureStore({
   reducer: {
     counter: couterReducer,
     user: registrationReducer,
+    book:bookReducer,
     [bookApi.reducerPath]:bookApi.reducer
   },
   middleware: (getDefaultMiddleware) =>

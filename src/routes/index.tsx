@@ -4,13 +4,12 @@ import App from "../App";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import MainLayot from "../Layot/MainLayot";
-import Home from "../pages/Home";
 import NotFound from "../pages/NotFound";
-import AllBook from "../pages/AllBook";
 import AddBook from "../pages/AddBook";
 import BookDettails from "../pages/BookDettails";
 import Edit from "../pages/Edit";
 import PrivateRoute from "./PrivateRoute";
+import AllBooks from "../pages/AllBooks";
 
 export const routes = createBrowserRouter([
   {
@@ -35,7 +34,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/books",
-        element: <AllBook></AllBook>,
+        element: <AllBooks></AllBooks>
       },
       {
         path: "/book/:id",

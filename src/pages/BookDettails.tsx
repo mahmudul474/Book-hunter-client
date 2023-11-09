@@ -1,5 +1,8 @@
 import { Link, useParams } from "react-router-dom";
-import { useDeleteBookMutation, useGetSingelBookQuery } from "../redux/api/apiSlice";
+import {
+  useDeleteBookMutation,
+  useGetSingelBookQuery,
+} from "../redux/api/apiSlice";
 import { useAppSelector } from "../redux/hook";
 import BookReview from "../componets/BookReview";
 import { useState } from "react";
@@ -18,18 +21,18 @@ export default function BookDettails() {
   };
 
   const { data, isLoading, isError } = useGetSingelBookQuery(id);
-  const [ deleteBook]=useDeleteBookMutation()
+  const [deleteBook] = useDeleteBookMutation();
 
-const handleDeleteProduct=(id:string)=>{
- deleteBook(id);
-}
-
-
-
+  const handleDeleteProduct = (id: string) => {
+    deleteBook({id,user});
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+
+  console.log(user)
 
   return (
     <>
@@ -50,24 +53,25 @@ const handleDeleteProduct=(id:string)=>{
             <div className="w-full px-4 md:w-1/2 ">
               <div className="lg:pl-20">
                 <div className="pb-6 mb-8 border-b border-gray-200 dark:border-gray-700">
-                  <div className="flex justify-start ">
-                    <Link to={`/book/edit/${data?._id}`}>
+                  
+                    <div className="flex justify-start ">
+                      <Link to={`/book/edit/${data?._id}`}>
+                        <button
+                          type="button"
+                          className="btn p-3 px-7 rounded-xl m-2 bg-green-600 text-white"
+                        >
+                          Edit
+                        </button>
+                      </Link>
                       <button
+                        onClick={handelModal}
                         type="button"
-                        className="btn p-3 px-7 rounded-xl m-2 bg-green-600 text-white"
+                        className="p-3 px-7 rounded-xl m-2 bg-red-600 text-white btn"
                       >
-                        Edit
+                        Delete
                       </button>
-                    </Link>
-                    <button
-                      onClick={handelModal}
-                      type="button"
-                      className="p-3 px-7 rounded-xl m-2 bg-red-600 text-white btn"
-                    >
-                      Delete
-                    </button>
-                    
-                  </div>
+                    </div>
+                
 
                   <h2 className="max-w-xl capitalize mt-2 mb-6 text-xl font-bold text-left  dark:text-gray-300 md:text-4xl">
                     {data?.title}
@@ -157,16 +161,16 @@ const handleDeleteProduct=(id:string)=>{
       {isopenModal === true && (
         <div className="fixed top-0 z-50 left-0 w-full h-full bg-black flex justify-center items-center">
           <div className="text-white">
-            <h3 className="font-bold text-lg">Hello!</h3>
-            <p className="py-4">This modal works with a hidden checkbox!</p>
+           
+            <p className="py-4">Are you sure Delete <span className="text-red-400 text-xl capitalize">{data?.title}</span>  ?</p>
             <div className="modal-action">
-            <label
-  onClick={() => handleDeleteProduct(data?._id)} // Use an arrow function to delay the function call
-  htmlFor="my_modal_6"
-  className="btn"
->
-  Delete
-</label>
+              <label
+                onClick={() => handleDeleteProduct(data?._id)} // Use an arrow function to delay the function call
+                htmlFor="my_modal_6"
+                className="btn"
+              >
+                Delete
+              </label>
               <label onClick={handelclose} htmlFor="my_modal_6" className="btn">
                 Close !
               </label>
