@@ -1,13 +1,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
- 
-  FunnelIcon,
-  MinusIcon,
-  PlusIcon,
- 
-} from "@heroicons/react/20/solid";
+import { FunnelIcon, MinusIcon, PlusIcon } from "@heroicons/react/20/solid";
 import { useAllbooksQuery } from "../redux/api/apiSlice";
 import { Link } from "react-router-dom";
 import {
@@ -16,7 +10,6 @@ import {
   setYearFilter,
 } from "../redux/featured/book/bookSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hook";
-import { Book } from "../models/Book";
 
 const filters = [
   {
@@ -48,30 +41,30 @@ export default function AllBooks() {
     dispatch(setYearFilter(e.target.value));
   };
 
-
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchTerm(e.target.value));
   };
 
-
-
   const filteredBooks = bookData
-  ? bookData.filter((book) => {
-      console.log('book', book);
-      console.log('filter', filter);
+    ? bookData.filter((book) => {
+        console.log("book", book);
+        console.log("filter", filter);
 
-      const titleMatch =
-        book.title && book.title.toLowerCase().includes(filter.searchTerm.toLowerCase());
-      const authorMatch =
-        book.authorName &&
-        book.authorName.toLowerCase().includes(filter.searchTerm.toLowerCase());
-      const genreMatch = !filter.genre || book.genre === filter.genre;
-      const yearMatch = !filter.year || book.publicationDate.includes(filter.year);
+        const titleMatch =
+          book.title &&
+          book.title.toLowerCase().includes(filter.searchTerm.toLowerCase());
+        const authorMatch =
+          book.authorName &&
+          book.authorName
+            .toLowerCase()
+            .includes(filter.searchTerm.toLowerCase());
+        const genreMatch = !filter.genre || book.genre === filter.genre;
+        const yearMatch =
+          !filter.year || book.publicationDate.includes(filter.year);
 
-      return titleMatch && authorMatch && genreMatch && yearMatch;
-    })
-  : [];
-
+        return titleMatch && authorMatch && genreMatch && yearMatch;
+      })
+    : [];
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -214,7 +207,7 @@ export default function AllBooks() {
             <input
               type="text"
               placeholder="Search by Title, Author, or Genre"
-           onChange={handleSearch}
+              onChange={handleSearch}
             />
             ;
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
