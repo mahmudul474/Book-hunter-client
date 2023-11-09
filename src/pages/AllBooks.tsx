@@ -8,7 +8,7 @@ import Filter from "../componets/Filter";
 import { addToWishlist } from "../redux/featured/book/bookSlice";
 
 export default function AllBooks() {
-  const { data: bookData, isLoading, isError } = useAllbooksQuery();
+  const { data: bookData, isLoading, } = useAllbooksQuery();
   const dispatch = useAppDispatch();
   const { filter } = useAppSelector((state) => state.book);
 
@@ -23,10 +23,9 @@ export default function AllBooks() {
             .toLowerCase()
             .includes(filter.searchTerm.toLowerCase());
         const genreMatch = !filter.genre || book.genre === filter.genre;
-        const yearMatch =
-          !filter.year || book.publicationDate.includes(filter.year);
+        const yearMatch =!filter.year || book.publicationDate.includes(filter.year);
 
-        const isMatchingBook = (titleMatch || authorMatch) && genreMatch;
+        const isMatchingBook = (titleMatch || authorMatch  ||genreMatch) &&  yearMatch ;
 
         if (isMatchingBook) {
           console.log(
@@ -149,7 +148,7 @@ export default function AllBooks() {
                   ))}
               </div>
             </div>
-            
+
           </section>
         </main>
       </div>

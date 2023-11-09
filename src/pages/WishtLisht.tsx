@@ -6,7 +6,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../redux/hook";
 
 export default function WishtLisht() {
-  const { data, isLoading, isError } = useAllbooksQuery();
+  const { data } = useAllbooksQuery();
   const dispatch = useAppDispatch();
   const { wishlist } = useAppSelector((state) => state.book);
 
