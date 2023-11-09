@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteBookMutation,
   useGetSingelBookQuery,
@@ -6,10 +6,12 @@ import {
 import { useAppSelector } from "../redux/hook";
 import BookReview from "../componets/BookReview";
 import { useState } from "react";
-import ConfirmationModal from "../componets/ConfirmationModal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 export default function BookDettails() {
   const { id } = useParams();
+  const   navigate=useNavigate()
   const { user } = useAppSelector((state) => state.user);
 
   const [isopenModal, setIsopenModal] = useState<boolean>(false);
@@ -20,11 +22,33 @@ export default function BookDettails() {
     setIsopenModal(false);
   };
 
-  const { data, isLoading, isError } = useGetSingelBookQuery(id);
+  const { data, isLoading, isError,error } = useGetSingelBookQuery(id);
   const [deleteBook] = useDeleteBookMutation();
 
-  const handleDeleteProduct = (id: string) => {
-    deleteBook({id,user});
+  const handleDeleteProduct = async(id: string) => {
+    const option={
+      id:id,
+      user:{user}
+    }
+try{
+    const response:any=await  deleteBook(option)
+    if (response.data && response.data.message) {
+      toast.success(response.data.message, {autoClose:2000});
+      handelclose()
+      navigate("/")
+    } else {
+     toast.error("You are not author this book ", {autoClose:3000})
+      handelclose()
+    }
+  } catch (error:any) {
+
+}
+
+
+   
+
+
+  
   };
 
   if (isLoading) {
@@ -32,7 +56,6 @@ export default function BookDettails() {
   }
 
 
-  console.log(user)
 
   return (
     <>
@@ -159,13 +182,14 @@ export default function BookDettails() {
         </div>
       </section>
       {isopenModal === true && (
-        <div className="fixed top-0 z-50 left-0 w-full h-full bg-black flex justify-center items-center">
+        <div className="m-auto w-full">
+        <div className="fixed    m-auto  top-0 z-50 left-0 w-full h-full bg-black flex justify-center items-center">
           <div className="text-white">
            
             <p className="py-4">Are you sure Delete <span className="text-red-400 text-xl capitalize">{data?.title}</span>  ?</p>
             <div className="modal-action">
               <label
-                onClick={() => handleDeleteProduct(data?._id)} // Use an arrow function to delay the function call
+                onClick={()=>handleDeleteProduct(data?._id)} // Use an arrow function to delay the function call
                 htmlFor="my_modal_6"
                 className="btn"
               >
@@ -176,7 +200,7 @@ export default function BookDettails() {
               </label>
             </div>
           </div>
-        </div>
+        </div></div>
       )}
     </>
   );

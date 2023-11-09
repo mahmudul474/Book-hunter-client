@@ -14,10 +14,11 @@ function Edit() {
   
 
   const { id } = useParams();
+  const { user } = useAppSelector((state) => state.user)
 
 
   const { data: bookData ,isLoading} = useGetSingelBookQuery(id);
-  const [updateBook, { isError }] = useUpdateBookMutation();
+  const [updateBook, { isError ,isSuccess}] = useUpdateBookMutation();
 
  
 
@@ -36,19 +37,42 @@ function Edit() {
     }
   }, [bookData]);
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async(e: FormEvent) => {
+ e.preventDefault();
     const option={
         id:id,
-        book:{book}
+        book:{book},
+        user:{user}
     }
-    updateBook(option)
-    .then(res=>{
+    try {
+      const response:any = await updateBook(option);
+  
+       
+      if (response.data && response.data.message) {
+        toast.success(response.data.message);
+      } else {
+       
+      }
+    } catch (error:any) {
       
-      toast.success("Book Updated Successfully");
-      
-    }).catch(err => {toast.error(err);});
+      if (error.response && error.response.data && error.response.data.message) {
+        toast.error(error.response.data.message);
+      } else {
+         
+ 
+      }
+    }
+    
   };
+
+
+
+  if(isError){
+  toast.error(`Error:You are not this Book Author  `, {autoClose:2000});
+  }
+
+  
+
 
   if (isLoading || !id || !bookData) {
     return <div>Loading...</div>;
@@ -57,7 +81,7 @@ function Edit() {
   return (
     <div className="px-4   py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <h1>Edit Book</h1>
-      <form className="flex flex-col lg:w-2/3 w-full m-auto   ">
+      <form  onSubmit={handleSubmit}  className="flex flex-col lg:w-2/3 w-full m-auto   ">
         <input
           type="text"
           required
@@ -92,13 +116,18 @@ function Edit() {
           }
         />
        
-        <button
-          className="border    m-auto p-3 px-6 rounded-xl  border-black hover:bg-transparent hover:text-black bg-black text-white "
-          type="submit"
-          onClick={handleSubmit}
-        >
-        Uptade Book
-        </button>
+      
+      {
+        isLoading  ? "Loading .......": <button
+        className="border    m-auto p-3 px-6 rounded-xl  border-black hover:bg-transparent hover:text-black bg-black text-white "
+        type="submit"
+         
+      >
+      Uptade Book
+      </button>
+      }
+      
+       
       </form>
     </div>
   );

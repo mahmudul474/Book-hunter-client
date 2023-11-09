@@ -30,11 +30,12 @@ export const bookApi = createApi({
         body: reviews,
       }),
       invalidatesTags: ['Book'],
-    }), deleteBook: builder.mutation({
+    }), 
+    deleteBook: builder.mutation({
       query: ({id,user}) => ({
         url: `/book/delete/${id}`,
         method: 'DELETE',
-        body:user,
+        body:{user},
       }),
     }),
     updateBook: builder.mutation({

@@ -1,34 +1,27 @@
 import React, { FormEvent, useState } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { Book } from "../models/Book";
-import {  useAppSelector } from "../redux/hook";
+import { useAppSelector } from "../redux/hook";
 import { useAddBookMutation } from "../redux/api/apiSlice";
 
-
 function AddBook() {
-  const { user} = useAppSelector((state) => state.user);
-const [addBook,{ isLoading}]=useAddBookMutation()
- 
-
-
+  const { user } = useAppSelector((state) => state.user);
+  const [addBook, { isLoading }] = useAddBookMutation();
 
   const [book, setBook] = useState<Book>({
     authorName: "",
     title: "",
-    author: (user as any)?.email || "",
+    author: (user as any)?.email,
     genre: "",
     publicationDate: "",
     reviews: [],
   });
 
- 
-
-
   const [error, setError] = useState<string>("");
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-  
+
     if (book.title === "") {
       setError("Please enter title");
     } else if (book.genre === "") {
@@ -39,34 +32,23 @@ const [addBook,{ isLoading}]=useAddBookMutation()
     } else if (book.publicationDate === "") {
       setError("Please enter publication date");
     } else {
-      addBook(book)
-        .then(response => {
-          
-          console.log("Success")
-           setBook({
-             authorName: "",
-             title: "",
-             author:  "",
-             genre: "",
-             publicationDate: "",
-             reviews: [],
-           });
-           setError("")
-        
-        })
-        .catch((error) => {
-          toast.error(error.message);
-        });
+      addBook(book);
 
+      try {
+        await addBook(book)
+        toast.success("book added successfully", {autoClose:3000})
+
+        setBook({
+          authorName: "",
+          title: "",
+          author: "",
+          genre: "",
+          publicationDate: "",
+          reviews: [],
+        });
+      } catch (e) {}
     }
   };
-  
-
-
-
-
-
-
 
   if (isLoading) {
     return <div>Loading...</div>;
