@@ -10,11 +10,7 @@ interface Book {
   
   }
   
-  interface Review {
-    img?: string;
-    text: string;
-    rating: number;
-  }
+   
   
   export type { Book};
   
